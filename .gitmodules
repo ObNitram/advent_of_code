@@ -1,0 +1,3 @@
+[submodule "packages/obni_utils"]
+	path = packages/obni_utils
+	url = https://github.com/ObNitram/obni_utils.git
