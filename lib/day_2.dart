@@ -1,3 +1,5 @@
+import "dart:math";
+
 import "package:advent_of_code/get_file.dart";
 import "package:obni_utils/obni_utils.dart";
 
@@ -18,33 +20,26 @@ void main() {
 
     bool mancheOK = true;
 
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+
     for (var manche in manches) {
       List<String> mancheSplit = manche.split(",");
 
-      int red = 0;
-      int green = 0;
-      int blue = 0;
-
       for (var color in mancheSplit) {
         if (color.contains("red")) {
-          red += color.trim().split(" ").first.toInt();
+          red = max(red, color.trim().split(" ").first.toInt());
         } else if (color.contains("green")) {
-          green += color.trim().split(" ").first.toInt();
+          green = max(green, color.trim().split(" ").first.toInt());
         } else if (color.contains("blue")) {
-          blue += color.trim().split(" ").first.toInt();
+          blue = max(blue, color.trim().split(" ").first.toInt());
         }
       }
       print("$red $green $blue");
-
-      if (red > 12 || green > 13 || blue > 14) {
-        mancheOK = false;
-      }
     }
 
-    if (mancheOK) {
-      print("manche $gameID OK");
-      total += gameID;
-    }
+    total += red * green * blue;
   }
 
   print("Total $total");
