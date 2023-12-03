@@ -4,6 +4,8 @@ import "package:obni_utils/obni_utils.dart";
 String data = getFile();
 List<String> dataLines = data.split("\n");
 
+Map<(int, int), List<int>> gearMAp = {};
+
 void main() {
   print("Hello, day 3!");
 
@@ -14,7 +16,7 @@ void main() {
     print(dataLine);
 
     int i = 0;
-    bool mustBeAdded = false;
+    (int, int)? mustBeAdded = null;
 
     for (var x = 0; x < dataLine.length; ++x) {
       var char = dataLine[x];
@@ -22,7 +24,7 @@ void main() {
       if (char.isInt()) {
         i = i * 10 + char.toInt();
 
-        if (mustBeAdded) {
+        if (mustBeAdded != null) {
           continue;
         }
 
@@ -36,21 +38,51 @@ void main() {
           continue;
         }
 
-        if (mustBeAdded) {
+        if (mustBeAdded != null) {
           print("add $i");
+
+          if (gearMAp[mustBeAdded] == null) {
+            gearMAp[mustBeAdded] = [];
+            gearMAp[mustBeAdded]!.add(i);
+          } else {
+            gearMAp[mustBeAdded]!.add(i);
+          }
 
           total += i;
         }
-        mustBeAdded = false;
+        mustBeAdded = null;
 
         i = 0;
       }
     }
-    if (mustBeAdded) {
+    if (mustBeAdded != null) {
       print("add $i");
+
+      if (gearMAp[mustBeAdded] == null) {
+        gearMAp[mustBeAdded] = [];
+        gearMAp[mustBeAdded]!.add(i);
+      } else {
+        gearMAp[mustBeAdded]!.add(i);
+      }
 
       total += i;
     }
+  }
+
+  total = 0;
+
+  for (var val in gearMAp.values) {
+    int m = 1;
+
+    if (val.length == 1) {
+      continue;
+    }
+
+    for (var v in val) {
+      m = m * v;
+    }
+    print(val);
+    total += m;
   }
 
   print("Total $total");
@@ -67,58 +99,58 @@ String? getChar(int x, int y) {
   return dataLines[y][x];
 }
 
-bool verifyAxe(int x, int y) {
+(int, int)? verifyAxe(int x, int y) {
   var a = getChar(x - 1, y);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x - 1, y);
     }
   }
   a = getChar(x + 1, y);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x + 1, y);
     }
   }
   a = getChar(x, y - 1);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x, y - 1);
     }
   }
   a = getChar(x, y + 1);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x, y + 1);
     }
   }
 
   a = getChar(x - 1, y - 1);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x - 1, y - 1);
     }
   }
   a = getChar(x - 1, y + 1);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x - 1, y + 1);
     }
   }
   a = getChar(x + 1, y - 1);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x + 1, y - 1);
     }
   }
   a = getChar(x + 1, y + 1);
   if (a != null) {
     if (a.isSymbole()) {
-      return true;
+      return (x + 1, y + 1);
     }
   }
 
-  return false;
+  return null;
 }
 
 extension on String {
@@ -132,9 +164,7 @@ extension on String {
   }
 
   bool isSymbole() {
-    RegExp reg = RegExp(r"[0-9.]");
-
-    return !reg.hasMatch(this);
+    return contains("*");
   }
 }
 
