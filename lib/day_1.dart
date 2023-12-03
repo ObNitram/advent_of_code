@@ -23,30 +23,17 @@ void main() {
   //55823
   //55607
 
-
   QuickLog.d(total.toString());
 }
 
 extension Parsing on String {
-  bool isInt() {
-    if (length != 1) {
-      return false;
-    }
-
-    try {
-      int.parse(this);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
   List<int> findInts() {
-    RegExp exp = RegExp(r"([0-9]|oneight|twone|threeight|fiveight|sevenine|eightwo|eighthree|nineight|one|two|three|four|five|six|seven|eight|nine)");
+    RegExp exp = RegExp(
+        r"([0-9]|oneight|twone|threeight|fiveight|sevenine|eightwo|eighthree|nineight|one|two|three|four|five|six|seven|eight|nine)");
 
     List<int> ints = [];
 
-    Map<String,List<int>> intMap = {
+    Map<String, List<int>> intMap = {
       "one": [1],
       "two": [2],
       "three": [3],
@@ -56,26 +43,19 @@ extension Parsing on String {
       "seven": [7],
       "eight": [8],
       "nine": [9],
-
-      "oneight": [1,8],
-
-      "twone": [2,1],
-
-      "threeight": [3,8],
-
-      "fiveight": [5,8],
-
-      "sevenine": [7,8],
-
-      "eightwo": [8,2],
-      "eighthree": [8,2],
-
-      "nineight": [9,8],
+      "oneight": [1, 8],
+      "twone": [2, 1],
+      "threeight": [3, 8],
+      "fiveight": [5, 8],
+      "sevenine": [7, 8],
+      "eightwo": [8, 2],
+      "eighthree": [8, 2],
+      "nineight": [9, 8],
     };
 
-  //55309
-  //55242
-  //55302
+    //55309
+    //55242
+    //55302
 
     var matches = exp.allMatches(this).map((e) => e.group(0)!);
 
@@ -89,9 +69,7 @@ extension Parsing on String {
       }
 
       ints.addAll(intMap[char]!);
-
     }
-
 
     return ints;
   }
