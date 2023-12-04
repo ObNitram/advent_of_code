@@ -5,6 +5,10 @@ include: package:lints/recommended.yaml
 
 linter:
   rules:
-    - always_declare_return_types
-    - prefer_const_constructors
+    - always_declare_return_types : false
+    - avoid_unused_constructor_parameters : false
     - prefer_double_quotes
+    - avoid_redundant_argument_values: false
+    - avoid_init_to_null : false
+    - comment_references : false
+    - unnecessary_this : false

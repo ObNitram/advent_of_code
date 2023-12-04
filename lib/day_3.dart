@@ -16,6 +16,7 @@ void main() {
     print(dataLine);
 
     int i = 0;
+    // ignore: avoid_init_to_null
     (int, int)? mustBeAdded = null;
 
     for (var x = 0; x < dataLine.length; ++x) {
@@ -155,12 +156,7 @@ String? getChar(int x, int y) {
 
 extension on String {
   List<String> toChar() {
-    List<String> str = [];
-
-    for (int i = 0; i < length; ++i) {
-      str.add(this[i]);
-    }
-    return str;
+    return this.split("");
   }
 
   bool isSymbole() {
