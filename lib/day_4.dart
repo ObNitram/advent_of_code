@@ -54,7 +54,7 @@ void main() {
   }
 
   for (var i = 0; i < dataLines.length; ++i) {
-    var o = mapi[i]!;
+    int o = mapi[i]!;
     result += o;
   }
 
