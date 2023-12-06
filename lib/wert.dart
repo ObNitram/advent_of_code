@@ -9,6 +9,7 @@ List<String> dataLines = data.split("\n\n");
 int result = 99999999999999999;
 
 void main() {
+  DateTime start = DateTime.now();
   print("Hello, day 5 !");
 
   List<int> seedString = dataLines.first.split(":").last.toListInt();
@@ -36,6 +37,9 @@ void main() {
       result = min(result, calcul(x, mapList));
     }
   }
+
+  print("Time : ${DateTime.now().difference(start).inMilliseconds} ms");
+  print("Second : ${DateTime.now().difference(start).inSeconds} s");
 
   print("Result $result");
 }

@@ -12,3 +12,4 @@ linter:
     - avoid_init_to_null : false
     - comment_references : false
     - unnecessary_this : false
+
