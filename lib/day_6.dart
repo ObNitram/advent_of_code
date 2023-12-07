@@ -1,16 +1,38 @@
 import "package:advent_of_code/get_file.dart";
+import "package:obni_utils/obni_utils.dart";
+
+String data = getFile();
+
+List<String> dataLines = data.split("\n");
+
+int result = 1;
 
 void main() {
   print("Hello, day 6 !");
 
-  String data = getFile();
+  List<int> timeList =
+      dataLines.first.split(":").last.replaceAll(" ", "").toListInt();
 
-  List<String> dataLines = data.split("\n");
+  List<int> distanceList =
+      dataLines.last.split(":").last.replaceAll(" ", "").toListInt();
 
-  int result = 0;
+  for (int i = 0; i < timeList.length; ++i) {
+    int time = timeList[i];
+    int distance = distanceList[i];
 
-  for (int i = 0; i < dataLines.length; ++i) {
-    String line = dataLines[i];
+    int permetDeGagner = 0;
+
+    for (var j = 0; j < time; ++j) {
+      int disTest = j * (time - j);
+
+      if (disTest > distance) {
+        permetDeGagner++;
+      }
+    }
+
+    print(permetDeGagner);
+
+    result *= permetDeGagner;
   }
 
   print("result : $result");

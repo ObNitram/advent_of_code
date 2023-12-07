@@ -25,7 +25,7 @@ void main() async {
 
   for (var j = 0; j < seedList.length; j = j + 2) {
     ranges.addAll(
-        Range.fromLength(seedList[j], seedList[j + 1]).splitByLength(10000000));
+        Range.fromLength(seedList[j], seedList[j + 1]).splitByLength(1000000));
   }
 
   result = await computeThreading<int, int>(
@@ -38,14 +38,22 @@ void main() async {
 }
 
 int calcul(int seed, List<List<int>> mapList) {
+  Range range = Range(0, 1000000);
+
   for (List<int> val in mapList) {
     for (var i = 0; i < val.length; i += 3) {
       int dest = val[i];
-      Range range = Range.fromLength(val[i + 1], val[i + 2]);
-
+      int start = val[i + 1];
+      int dist = val[i + 2];
+      int end = start + dist;
       // print("$dest $start  $dist");
-      if (seed.isIn(range)) {
-        seed = seed + (dest - val[i + 1]);
+      // if (seed.isBetween(start, end)) {
+
+      range.start = start;
+      range.end = end;
+
+      if (range.containInt(seed)) {
+        seed = seed + (dest - start);
         // print("move : $start $dest $dist");
         break;
       }
@@ -55,7 +63,4 @@ int calcul(int seed, List<List<int>> mapList) {
 }
 
 //6472061 to high
-//  6472060 !!!
 // 279 seconds
-
-// 116
